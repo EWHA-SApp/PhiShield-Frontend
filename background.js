@@ -47,7 +47,7 @@ chrome.identity.getAuthToken({ interactive: true }, function(token) {
                 const subject = subjectHeader ? subjectHeader.value : 'No Subject';
                 const from = fromHeader ? fromHeader.value : 'Unknown Sender';
 
-                console.log("추출 시작");
+                console.log("===================추출 시작===========================");
 
                 // 이메일 본문을 추출
                 let body = '';
@@ -61,13 +61,22 @@ chrome.identity.getAuthToken({ interactive: true }, function(token) {
                     // 단일 파트로 이루어진 경우
                     body = atob(messageData.payload.body.data.replace(/-/g, '+').replace(/_/g, '/'));
                 }
-                
-            
-                // 이메일 본문에서 URL만 추출
+
+                // Base64 디코딩 후 UTF-8로 변환
+                body = decodeURIComponent(escape(body));
+
+                // 이메일 본문에서 URL 추출
+                console.log("===================URL 추출===========================");
                 const urlRegex = /https?:\/\/[^\s/$.?#].[^\s]*/g;
                 const urls = body.match(urlRegex) || [];
-
                 console.log("Extracted URLs:", urls);
+
+                // 이메일 본문에서 단어 추출
+                console.log("===================텍스트(단어) 추출===========================");
+                const textContent = body.replace(/<[^>]+>/g, ''); // HTML 태그를 제거하여 일반 텍스트로 변환
+                const words = textContent.split(/\s+/).filter(Boolean); // 단어 단위로 분리하고 빈 문자열 제거
+                console.log("Extracted Words:", words);
+
 
                 chrome.notifications.create('', {
                     title: from,

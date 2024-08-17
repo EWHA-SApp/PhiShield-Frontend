@@ -5,6 +5,7 @@
     "description": "Check phishing mail",
     "permissions": [
         "identity",
+        "downloads",
         "identity.email",
         "notifications"
     ],

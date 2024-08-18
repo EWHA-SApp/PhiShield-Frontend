@@ -1,8 +1,9 @@
 import { extractEmailBody } from './script/extractEmailBody.js';
 import { extractAttachments } from './script/extractAttachments.js';
 import { getUnreadMessages, getMessageDetails } from './script/gmailApi.js';
+import { sendEmailDataToBackend } from './script/backendUtils.js'; // 새로 추가된 모듈
 
-console.log("시작");
+console.log("===================PhiShield 시작===========================");
 
 chrome.runtime.onInstalled.addListener(() => {
     console.log("Gmail Notifier installed.");
@@ -56,6 +57,10 @@ chrome.identity.getAuthToken({ interactive: true }, function(token) {
         // 첨부파일 추출 및 다운로드
         console.log("===================첨부파일 추출===========================");
         extractAttachments(messageData, token, messageData.id);
+
+        // 백엔드로 데이터 전송
+        console.log("===================API로 데이터 전송===========================");
+        sendEmailDataToBackend(subject, from, textContent);
 
         // 아이콘 생성  
         chrome.notifications.create('', {

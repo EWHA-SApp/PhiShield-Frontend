@@ -1,48 +1,47 @@
 /**
  * Extracts the email body from the given message data.
  * @param {Object} messageData - The message data object from Gmail API.
- * @returns {string} The extracted email body.
+ * @returns {Object} An object containing the extracted text content and HTML content.
  */
-function extractEmailBody(messageData) {
-    let body = '';
+export function extractEmailBody(messageData) {
+    let textContent = '';
+    let htmlContent = '';
 
     function getPartData(part) {
         if (part.body && part.body.data) {
-            // Decode base64 encoded data
             let partData = atob(part.body.data.replace(/-/g, '+').replace(/_/g, '/'));
             
-            // If it's HTML, we might want to convert it to plain text
             if (part.mimeType === 'text/html') {
-                partData = partData.replace(/<[^>]+>/g, ''); // Remove HTML tags
+                htmlContent += partData;
+            } else if (part.mimeType === 'text/plain') {
+                textContent += partData;
             }
-            return partData;
         }
-        return '';
     }
 
     if (messageData.payload.parts) {
-        // If the email is multipart, we need to handle different parts
         for (let part of messageData.payload.parts) {
             if (part.mimeType === 'multipart/alternative') {
-                // Process multipart/alternative parts
                 for (let subPart of part.parts) {
                     if (subPart.mimeType === 'text/plain' || subPart.mimeType === 'text/html') {
-                        body += getPartData(subPart);
+                        getPartData(subPart);
                     }
                 }
             } else if (part.mimeType === 'text/plain' || part.mimeType === 'text/html') {
-                // Process text/plain or text/html parts directly
-                body += getPartData(part);
+                getPartData(part);
             }
         }
     } else if (messageData.payload.body && messageData.payload.body.data) {
-        // Single part email
-        body = atob(messageData.payload.body.data.replace(/-/g, '+').replace(/_/g, '/'));
+        const singlePartData = atob(messageData.payload.body.data.replace(/-/g, '+').replace(/_/g, '/'));
+        if (messageData.payload.mimeType === 'text/html') {
+            htmlContent = singlePartData;
+        } else {
+            textContent = singlePartData;
+        }
     }
 
-    // Decode base64 encoded body
-    return decodeURIComponent(escape(body));
+    return {
+        textContent: decodeURIComponent(escape(textContent)),
+        htmlContent: decodeURIComponent(escape(htmlContent))
+    };
 }
-
-// Export the function
-export { extractEmailBody };

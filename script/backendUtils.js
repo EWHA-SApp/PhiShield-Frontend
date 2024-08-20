@@ -1,7 +1,5 @@
-// backendUtils.js
-
 // 백엔드로 데이터를 전송하는 함수
-export function sendEmailDataToBackend(subject, from, body) {
+export function sendEmailDataToBackend(subject, from, textContent, htmlContent) {
     fetch('http://3.38.47.187:8000/api/phishing-check', {
         method: 'POST',
         headers: {
@@ -10,7 +8,8 @@ export function sendEmailDataToBackend(subject, from, body) {
         body: JSON.stringify({
             title: subject,
             sender: from,
-            body: body
+            body: textContent,
+            whole_data: htmlContent
         })
     })
     .then(response => response.json())

@@ -1,3 +1,5 @@
+// detecting.js
+
 import { processLatestEmail, analyzeAndStoreEmail } from './emailProcessor.js';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -5,9 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('check').addEventListener('click', async () => {
         console.log('클릭함');
 
-        // 상태 텍스트 요소 참조
-        const statusElement = document.querySelector('.status-text');
-        statusElement.textContent = '토큰을 얻고 있습니다...';
+        // 상태 텍스트 요소 참조 (올바른 아이디 또는 클래스 확인)
+        const statusElement = document.querySelector('#status'); // '#status'로 변경
+
+        if (!statusElement) {
+            console.error('Status element not found!');
+            return;
+        }
 
         try {
             const token = await new Promise((resolve, reject) => {
@@ -21,7 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             console.log('Auth token received:', token);
-            statusElement.textContent = '이메일을 분석 중입니다...';
+
+            statusElement.textContent = '분석중...';
 
             const messageData = await processLatestEmail(token);
             if (messageData) {
@@ -72,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // '지난 분석 기록 보기' 버튼 클릭 이벤트
-    document.getElementById('historyButton').addEventListener('click', function() {
+    document.getElementById('pastReport').addEventListener('click', function() {
         window.open('pastReport.html', 'PastReport', 'width=800,height=600');
     });
 });

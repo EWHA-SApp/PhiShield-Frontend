@@ -1,3 +1,5 @@
+// popup.js
+
 document.getElementById('check').addEventListener('click', () => {
     console.log('클릭함');
     window.location.href = 'detecting.html';
@@ -24,4 +26,9 @@ document.getElementById('reset').addEventListener('click', () => {
             });
         });
     });
+});
+
+// '지난 분석 기록 보기' 버튼 클릭 이벤트
+document.getElementById('pastReport').addEventListener('click', function() {
+    window.open('pastReport.html', 'PastReport', 'width=800,height=600');
 });

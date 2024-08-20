@@ -19,6 +19,10 @@
             width: 100%;
             height: 100%;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         #status {
@@ -30,7 +34,7 @@
             font-weight: bold; /* 볼드체 적용 */
             color: #003366; /* 남색으로 텍스트 색상 설정 */
             text-align: center; /* 텍스트 중앙 정렬 */
-            font-family: 'Noto Sans KR', sans-serif; /* Noto Sans KR 폰트 적용 */
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         .icon-container {
@@ -45,36 +49,112 @@
             object-fit: contain; /* 이미지 비율 유지 */
         }
 
-        .button {
-            font-size: 25px; /* 버튼 텍스트 크기 */
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             width: 100%;
-            box-sizing: border-box;
-            padding: 10px 20px;
-            color: white;
-            background-color: #4CAF50; /* 녹색 배경 */
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            text-align: center;
-            margin-top: 15px;
-            font-family: 'Noto Sans KR', sans-serif; /* Noto Sans KR 폰트 적용 */
+            margin-top: 20px;
         }
 
-        .button:hover {
-            background-color: #45a049; /* 호버 시 더 진한 녹색 */
+        /* CSS */
+        .button-43 {
+        background-image: linear-gradient(-180deg, #37AEE2 0%, #1E96C8 100%);
+        border-radius: .5rem;
+        box-sizing: border-box;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #FFFFFF;
+        display: flex;
+        font-size: 18px;
+        justify-content: center;
+        padding: 1rem 1.75rem;
+        text-decoration: none;
+        width: 100%;
+        border: 0;
+        cursor: pointer;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
         }
 
-        #reset {
-            font-size: 25px; /* 리셋 버튼 텍스트 크기 */
-            width: 100%;
+        .button-43:hover {
+        background-image: linear-gradient(-180deg, #1D95C9 0%, #17759C 100%);
+        }
+
+        @media (min-width: 768px) {
+        .button-43 {
+            padding: 1rem 2rem;
+        }
+        }
+
+        /* CSS */
+        .button-44 {
+            background-image: linear-gradient(-180deg, #372e98 0%, #221680 100%);
+            border-radius: .5rem;
             box-sizing: border-box;
             margin-top: 10px;
-            background-color: #f44336; /* 빨간색 배경 */
-            color: white;
-            border: none;
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #FFFFFF;
+            display: flex;
+            font-size: 18px;
+            justify-content: center;
+            padding: 1rem 1.75rem;
+            text-decoration: none;
+            width: 100%;
+            border: 0;
             cursor: pointer;
-            border-radius: 5px;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            }
+    
+            .button-44:hover {
+            background-image: linear-gradient(-180deg, #14188c 0%, #181270 100%);
+            }
+    
+            @media (min-width: 768px) {
+            .button-44 {
+                padding: 1rem 2rem;
+            }
+            }
+
+        /* CSS */
+        .button_2 {
+          background-color: #FFFFFF;
+          border: 0;
+          border-radius: .5rem;
+          margin-top:10px;
+          box-sizing: border-box;
+          color: #111827;
+          font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          font-size: .875rem;
+          font-weight: 600;
+          line-height: 1.25rem;
+          padding: .75rem 1rem;
+          text-align: center;
+          text-decoration: none #D1D5DB solid;
+          text-decoration-thickness: auto;
+          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+          cursor: pointer;
+          user-select: none;
+          -webkit-user-select: none;
+          touch-action: manipulation;
         }
+        
+        .button_2:hover {
+          background-color: rgb(249,250,251);
+        }
+        
+        .button_2:focus {
+          outline: 2px solid transparent;
+          outline-offset: 2px;
+        }
+        
+        .button_2:focus-visible {
+          box-shadow: none;
+        }
+
+        
     </style>
 </head>
 <body>
@@ -82,8 +162,11 @@
         <img src="../images/icon/icon.png" alt="Icon"> <!-- 아이콘 이미지 추가 -->
     </div>
     <div id="status">PhiShield</div>
-    <button id="check" class="button">분석하기</button>
-    <button id="reset">Reset Email List</button>
+    <div class="button-container">
+        <button id="check" class="button-43">Analyze</button>
+        <button id="reset" class="button-44">Reset Email List</button>
+        <button id="pastReport" class="button_2">지난 분석 기록 보기</button>
+    </div>
     <script type="module" src="popup.js"></script>
 </body>
 </html>

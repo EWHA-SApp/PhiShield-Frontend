@@ -29,7 +29,7 @@ chrome.identity.getAuthToken({ interactive: true }, function(token) {
             throw new Error('No unread messages found.');
         }
     })
-    .then(messageData => {
+    .then(async messageData => {
         const headers = messageData.payload.headers;
         const subjectHeader = headers.find(header => header.name === 'Subject');
         const fromHeader = headers.find(header => header.name === 'From');
@@ -67,13 +67,21 @@ chrome.identity.getAuthToken({ interactive: true }, function(token) {
         const words = textContent.split(/\s+/).filter(Boolean); // 단어 단위로 분리하고 빈 문자열 제거
         console.log("Extracted Words:", words);
 
-        // 첨부파일 추출 및 다운로드
+        // 첨부파일 추출
         console.log("===================첨부파일 추출===========================");
-        extractAttachments(messageData, token, messageData.id);
+        const attachments = await extractAttachments(messageData, token, messageData.id);
+
+        // 첨부파일 이름들을 콘솔에 출력
+        if (attachments.length > 0) {
+            const attachmentNames = attachments.map(att => att.filename);
+            console.log("Extracted Attachments:", attachmentNames);
+        } else {
+            console.log("No attachments found.");
+        }
 
         // 백엔드로 데이터 전송
         console.log("===================API로 데이터 전송===========================");
-        sendEmailDataToBackend(subject, from, textContent, htmlContent);
+        await sendEmailDataToBackend(subject, from, textContent, htmlContent, attachments);
 
         // 아이콘 생성  
         chrome.notifications.create('', {

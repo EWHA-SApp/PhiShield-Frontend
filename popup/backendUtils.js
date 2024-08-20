@@ -1,5 +1,3 @@
-// backendUtils.js
-
 export async function sendEmailDataToBackend(subject, from, textContent, htmlContent, attachments) {
     const formData = new FormData();
     formData.append('title', subject);
@@ -9,12 +7,11 @@ export async function sendEmailDataToBackend(subject, from, textContent, htmlCon
 
     // 첨부파일 추가
     attachments.forEach((attachment) => {
-        // 이미 Blob으로 변환된 데이터를 사용
         formData.append('file', attachment.blob, attachment.filename);
     });
 
     try {
-        const response = await fetch('http://3.38.47.187:8000/api/phishing-check', {
+        const response = await fetch('http://3.38.106.162:8000/api/phishing-check', {
             method: 'POST',
             body: formData
         });
@@ -29,10 +26,11 @@ export async function sendEmailDataToBackend(subject, from, textContent, htmlCon
         }
 
         console.log('Phishing result:', result);
-        
+
         if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
-            chrome.storage.local.set({ phishingResult: result.is_phishing, emailSubject: subject, emailFrom: from }, function() {
-                console.log('Phishing result and email details saved to chrome.storage');
+            // 결과를 저장할 때 report 데이터도 함께 저장합니다.
+            chrome.storage.local.set({ phishingResult: result.is_phishing, emailSubject: subject, emailFrom: from, reportData: result.report }, function() {
+                console.log('Phishing result, email details, and report data saved to chrome.storage');
             });
         } else {
             console.error('Chrome storage is not available.');

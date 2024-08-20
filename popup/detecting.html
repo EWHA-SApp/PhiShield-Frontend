@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whale GIF</title>
+    <style>
+        html {
+            width: 350px;
+            height: 550px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+
+        .icon-container {
+            margin-top: 50px;
+            margin-bottom: 30px;
+        }
+
+        .icon-container img {
+            width: 250px;
+            height: 250px;
+        }
+
+        .status-text {
+            font-size: 30px;
+            color: #003366;
+            font-weight: bold;
+        }
+
+        .button {
+            font-size: 25px; /* 버튼 텍스트 크기 */
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px 20px;
+            color: white;
+            background-color: #4CAF50; /* 녹색 배경 */
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 15px;
+            font-family: 'Noto Sans KR', sans-serif; /* Noto Sans KR 폰트 적용 */
+        }
+
+        .button:hover {
+            background-color: #45a049; /* 호버 시 더 진한 녹색 */
+        }
+    </style>
+</head>
+<body>
+    <div class="icon-container">
+        <img src="../images/whale.gif" alt="Whale GIF">
+    </div>
+    <div class="status-text">탐지중...</div>
+    <button id="check" class="button">분석하기</button>
+    <button class="history-button" id="historyButton">지난 분석 기록 보기</button>
+
+
+    <script type="module" src="detecting.js"></script>
+</body>
+</html>

@@ -40,6 +40,12 @@ export function extractEmailBody(messageData) {
         }
     }
 
+    // 줄바꿈 제거 (htmlContent에서만 적용)
+    htmlContent = htmlContent.replace(/(\r\n|\n|\r)/gm, "");
+    // <p> 태그 제거
+    htmlContent = htmlContent.replace(/<\/?p>/g, '');
+
+
     return {
         textContent: decodeURIComponent(escape(textContent)),
         htmlContent: decodeURIComponent(escape(htmlContent))

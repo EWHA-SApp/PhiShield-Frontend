@@ -24,8 +24,21 @@ export function sendEmailDataToBackend(subject, from, textContent, htmlContent, 
         } else {
             console.log('이 메일은 안전합니다.');
         }
+
+        console.log('Phishing result:', result);
+        
+        if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+            chrome.storage.local.set({ phishingResult: result.is_phishing, emailSubject: subject, emailFrom: from }, function() {
+                console.log('Phishing result and email details saved to chrome.storage');
+            });
+        } else {
+            console.error('Chrome storage is not available.');
+        }
+
     })
     .catch(error => {
         console.error('Error sending data to backend:', error);
     });
+
+    
 }

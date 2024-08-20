@@ -25,10 +25,7 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             padding: 20px;
             margin-bottom: 20px;
-        }
-
-        .report {
-            margin-bottom: 10px;
+            cursor: pointer; /* 클릭할 수 있도록 커서 변경 */
         }
 
         .report-title {
@@ -51,25 +48,8 @@
 <body>
     <h1>지난 분석 기록</h1>
 
-    <div class="report-container">
-        <div class="report">
-            <div class="report-title">보고서 제목 1</div>
-            <div class="report-date">2024년 8월 21일</div>
-            <div class="report-content">
-                이 보고서는 최근 분석된 이메일의 내용을 포함하고 있습니다. 이 이메일은 피싱 가능성이 있는 것으로 판단되었습니다.
-            </div>
-        </div>
-    </div>
+    <div id="reports-list"></div>
 
-    <div class="report-container">
-        <div class="report">
-            <div class="report-title">보고서 제목 2</div>
-            <div class="report-date">2024년 8월 20일</div>
-            <div class="report-content">
-                이 보고서는 최근 분석된 이메일의 내용을 포함하고 있습니다. 이 이메일은 안전한 것으로 판단되었습니다.
-            </div>
-        </div>
-    </div>
-
+    <script type="module" src="pastReport.js"></script>
 </body>
 </html>

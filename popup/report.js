@@ -1,10 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('보고서 시작');
 
+    // reportData와 selectedReport를 둘 다 가져옵니다.
     chrome.storage.local.get('reportData', (result) => {
-        if (result.reportData) {
-            const report = result.reportData;
+        // reportData가 있으면 새로운 메일 분석 결과를 사용하고,
+        // selectedReport가 있으면 과거의 레포트를 사용합니다.
+        const report = result.reportData || result.selectedReport;
 
+        if (report) {
             const reportContainer = document.createElement('div');
             reportContainer.className = 'report-container';
 

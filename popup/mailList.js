@@ -2,7 +2,7 @@
 
 // 메일 데이터를 저장하는 함수
 export function saveMailData(subject, from, isPhishing, report) {
-    const emailData = { subject, from, isPhishing, report};
+    const emailData = { subject, from, isPhishing, report };
 
     console.log('======================mailList_emailData 출력', emailData);
 
@@ -32,4 +32,3 @@ export function getMailData(callback) {
         callback(result.emailList || []);
     });
 }
-

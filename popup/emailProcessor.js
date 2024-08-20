@@ -90,8 +90,8 @@ export async function analyzeAndStoreEmail(messageData, token) {
         const result = await sendEmailDataToBackend(subject, from, textContent, htmlContent, attachments);
 
         if (result !== undefined && result !== null) {
-            saveMailData(subject, from, result.is_phishing);
-            return { subject, from, is_phishing: result.is_phishing };
+            saveMailData(subject, from, result.is_phishing, result.report);
+            return { subject, from, is_phishing: result.is_phishing, report: result.report};
         } else {
             console.error('Result is undefined or null, skipping save operation.');
             return null;

@@ -27,15 +27,6 @@ export async function sendEmailDataToBackend(subject, from, textContent, htmlCon
 
         console.log('Phishing result:', result);
 
-        if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
-            // 결과를 저장할 때 report 데이터도 함께 저장합니다.
-            chrome.storage.local.set({ phishingResult: result.is_phishing, emailSubject: subject, emailFrom: from, reportData: result.report }, function() {
-                console.log('Phishing result, email details, and report data saved to chrome.storage');
-            });
-        } else {
-            console.error('Chrome storage is not available.');
-        }
-
         return result; // 결과를 반환합니다.
 
     } catch (error) {

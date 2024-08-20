@@ -1,4 +1,6 @@
-export function sendEmailDataToBackend(subject, from, textContent, htmlContent, attachments) {
+// backendUtils.js
+
+export async function sendEmailDataToBackend(subject, from, textContent, htmlContent, attachments) {
     const formData = new FormData();
     formData.append('title', subject);
     formData.append('sender', from);
@@ -11,12 +13,13 @@ export function sendEmailDataToBackend(subject, from, textContent, htmlContent, 
         formData.append('file', attachment.blob, attachment.filename);
     });
 
-    fetch('http://3.38.47.187:8000/api/phishing-check', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(result => {
+    try {
+        const response = await fetch('http://3.38.47.187:8000/api/phishing-check', {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json();
         console.log('백엔드 응답:', result);
 
         if (result.is_phishing) {
@@ -35,10 +38,10 @@ export function sendEmailDataToBackend(subject, from, textContent, htmlContent, 
             console.error('Chrome storage is not available.');
         }
 
-    })
-    .catch(error => {
-        console.error('Error sending data to backend:', error);
-    });
+        return result; // 결과를 반환합니다.
 
-    
+    } catch (error) {
+        console.error('Error sending data to backend:', error);
+        return null; // 에러 발생 시 null 반환
+    }
 }

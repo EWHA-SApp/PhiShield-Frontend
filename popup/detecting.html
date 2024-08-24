@@ -1,13 +1,9 @@
-<!-- detecting.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Whale GIF</title>
-    <!-- 구글 웹 폰트 링크 추가 (Noto Sans KR) -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap">
     <style>
         html {
             width: 350px;
@@ -25,30 +21,28 @@
             text-align: center;
         }
 
-        #status {
-            font-size: 25px;
+        .icon-container {
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .icon-container img {
+            width: 250px;
+            height: 250px;
+        }
+
+        .status-text {
+            font-size: 30px;
             font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #003366;
             font-weight: bold;
         }
-
-        .icon-container {
-            margin-top: 50px;
-            margin-bottom: 30px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .icon-container img {
-            width: 250px; /* 아이콘 너비 조정 */
-            height: 250px; /* 아이콘 높이 조정 */
-            object-fit: contain; /* 이미지 비율 유지 */
-        }
-
+        
         /* CSS */
-        .button_2 {
+        .button-38 {
           background-color: #FFFFFF;
           border: 0;
+          width: 50%;
           border-radius: .5rem;
           margin-top:10px;
           box-sizing: border-box;
@@ -61,28 +55,28 @@
           text-align: center;
           text-decoration: none #D1D5DB solid;
           text-decoration-thickness: auto;
-          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+          box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
           cursor: pointer;
           user-select: none;
           -webkit-user-select: none;
           touch-action: manipulation;
         }
         
-        .button_2:hover {
+        .button-38:hover {
           background-color: rgb(249,250,251);
         }
         
-        .button_2:focus {
+        .button-38:focus {
           outline: 2px solid transparent;
           outline-offset: 2px;
         }
         
-        .button_2:focus-visible {
+        .button-38:focus-visible {
           box-shadow: none;
         }
 
         /* CSS */
-        .button_1 {
+        .button-43 {
             background-image: linear-gradient(-180deg, #37AEE2 0%, #1E96C8 100%);
             border-radius: .5rem;
             margin-top:10px;
@@ -102,24 +96,26 @@
             touch-action: manipulation;
             }
     
-            .button_1:hover {
+            .button-43:hover {
             background-image: linear-gradient(-180deg, #1D95C9 0%, #17759C 100%);
             }
     
             @media (min-width: 768px) {
-            .button_1 {
+            .button-43 {
                 padding: 1rem 2rem;
             }
             }
+
     </style>
 </head>
 <body>
     <div class="icon-container">
         <img src="../images/whale.gif" alt="Whale GIF">
     </div>
-    <div id="status">탐지중...</div>
-    <button id="check" class="button_1">분석하기</button>
-    <button id="pastReport" class="button_2">지난 분석 기록 보기</button>
+    <div class="status-text">Analyzing···</div>
+    <button id="check" class="button-43">Analyze</button>
+    <button class="button-38" id="historyButton">See Past Reports</button>
+
 
     <script type="module" src="detecting.js"></script>
 </body>
